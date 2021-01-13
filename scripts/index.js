@@ -2,6 +2,7 @@ const guideList = document.querySelector('.guides');
 
 //setp guides
 const setupGuides = (data) =>{
+   if(data.length){
     let html ='';
     data.forEach(doc =>{
         const guide = doc.data();
@@ -13,8 +14,10 @@ const setupGuides = (data) =>{
         `;
         html += li;
     })
-
     guideList.innerHTML = html;
+   }else{
+        guideList.innerHTML = `<h5 class="center-align">Login to view guides</h5>`;
+   }
 }
 
 //setup materialize components
