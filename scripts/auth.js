@@ -1,3 +1,9 @@
+//getting data from firestore
+db.collection('guides').get().then(sanpshot=>{
+    setupGuides(sanpshot.docs); //pass data to setupGuides function
+});
+
+
 //listen for auth status changes
 auth.onAuthStateChanged(user =>{
     if(user){
