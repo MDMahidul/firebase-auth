@@ -5,8 +5,11 @@ auth.onAuthStateChanged(user =>{
         //getting data from firestore
         db.collection('guides').get().then(sanpshot=>{
             setupGuides(sanpshot.docs); //pass data to setupGuides function
+            setupUI(user);
         });
     }else{
+
+      setupUI();
         setupGuides([]);
     }
 })
