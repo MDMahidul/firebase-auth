@@ -3,15 +3,33 @@
 auth.onAuthStateChanged(user =>{
     if(user){
         //getting data from firestore
-        db.collection('guides').get().then(sanpshot=>{
+        db.collection('guides').onSnapshot(sanpshot=>{
             setupGuides(sanpshot.docs); //pass data to setupGuides function
             setupUI(user);
         });
     }else{
 
       setupUI();
-        setupGuides([]);
+      setupGuides([]);
     }
+})
+
+//create new guide
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit',(e)=>{
+  e.preventDefault();
+
+  db.collection('guides').add({
+     title: createForm['title'].value,
+     content:createForm['content'].value
+  }).then(() =>{
+    //close modal and reset form
+    const modal=document.querySelector('#modal-create');
+    M.Modal.getInstance(modal).close();
+    createForm.reset();
+  }).catch(err=>{
+    console.log(err.message);
+  })
 })
 
 // signup
